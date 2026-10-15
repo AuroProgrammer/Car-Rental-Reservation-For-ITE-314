@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Available Cars</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/cars">Available Cars</a>
+        <a href="/list_bookings">My Bookings</a>
+        <a href="/testimonials">Testimonials</a>
+        <a href="/account">Account</a>
+    </nav>
+
+    <div class="container">
+        <h1>Cars Available for Rent</h1>
+        <table>
+            <tr>
+                <th>Car Name</th>
+                <th>Type</th>
+                <th>Price / Day</th>
+            </tr>
+            <% cars.forEach(car => { %>
+                <tr>
+                    <td><%= car.name %></td>
+                    <td><%= car.type %></td>
+                    <td>$<%= car.price_per_day %></td>
+                </tr>
+            <% }) %>
+        </table>
+
+        <h2>Book a Vehicle</h2>
+        <form action="/book" method="POST">
+            <select name="carId" required>
+                <option value="">Select a Car</option>
+                <% cars.forEach(car => { %>
+                    <option value="<%= car.id %>"><%= car.name %> ($<%= car.price_per_day %>/day)</option>
+                <% }) %>
+            </select>
+            <input type="email" name="userEmail" placeholder="Your Email" required>
+            <label>Start Date:</label>
+            <input type="date" name="startDate" required>
+            <label>End Date:</label>
+            <input type="date" name="endDate" required>
+            <button type="submit">Book Car</button>
+        </form>
+    </div>
+</body>
+</html>
